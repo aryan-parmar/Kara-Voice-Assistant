@@ -1,0 +1,10 @@
+wikipedia
+plyer
+pendulum
+numpy==1.19.2
+opencv-python
+pyautogui
+mysql.connector
+pyjokes
+fpdf
+pyttsx3==2.71
