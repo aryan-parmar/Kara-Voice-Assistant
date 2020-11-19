@@ -67,7 +67,7 @@ except:
     data.execute("USE karadb")
     userdata = Tk()
     userdata.geometry('500x200')
-    userdata.wm_iconbitmap('winlogo.ico')
+    userdata.wm_iconbitmap('resources\\winlogo.ico')
     userdata.title("Hello")
     userdata.configure(background="black")
 
@@ -211,7 +211,7 @@ def pic_stat():
 
 def take_pic(image_counter=0):
     face_cascade = cv2.CascadeClassifier(
-        r'C:\Users\Aryan\PycharmProjects\pythonProject\venv\Lib\site-packages\cv2\data\haarcascade_frontalface_alt.xml')
+        r'resources\haarcascade_frontalface_alt.xml')
     video = cv2.VideoCapture(0)
     video.set(3, 852)
     video.set(4, 480)
@@ -380,7 +380,7 @@ def output(q):
         speak("tell your new name")
         new_name = Tk()
         new_name.geometry('400x300')
-        new_name.wm_iconbitmap('winlogo.ico')
+        new_name.wm_iconbitmap('resources\\winlogo.ico')
         new_name.configure(background="black")
         new_name.title("Change Name")
         name = StringVar()

@@ -21,44 +21,47 @@ class SplashScreen:
 
 class mainroot:
     def __init__(self):
-        wish()
         self.sroot = Tk()
-        self.sroot.geometry('1920x1080')
-        self.sroot.wm_state("zoomed")
+        self.sroot.geometry('1280x800')
         self.sroot.wm_iconbitmap(r'resources/winlogo.ico')
-        self.sroot.minsize(1080, 890)
+        self.sroot.minsize(1280, 760)
+        self.sroot.maxsize(1280, 760)
         self.sroot.configure(background="black")
         self.sroot.title("KARA")
 
-        self.label = Label(self.sroot, text="Kara", bg="black", fg="white", font=("Megrim", 150, "bold"))
-        self.label.place(relx=.5, rely=.5, anchor="center")
+        bgImg = PhotoImage(file="resources\\bg.png", master=self.sroot)
+        frame = Label(self.sroot,image=bgImg)
+        frame.image = bgImg
+        frame.place(x=0, y=0, relwidth = 1, relheight=1)
 
-        mic = Image.open(r"resources/mic.png")
-        mic1 = ImageTk.PhotoImage(mic, master=self.sroot)
-        self.mic = Button(self.sroot, text="", image=mic1, command=self.startMic, compound=TOP, bg="black",
-                          activebackground="#FF5733", borderwidth=0, highlightthickness=0, padx=10, pady=10)
-        self.mic.place(relx=.5, rely=.7, anchor="center")
+        mic1 = PhotoImage(file="resources\\micr.png", master=self.sroot)
+        self.mic = Button(self.sroot, image=mic1, command=self.startMic, bg="white", activebackground="#FF5733",bd=0)
+        self.mic.place(relx=.5, rely=.6, anchor="center")
+        self.mic.image = mic1
 
-        self.his = Button(self.sroot, text="HISTORY", command=lambda: output("history"), bg="black", fg="white",
-                          activebackground="#FF5733", borderwidth=1, highlightthickness=0, padx=10, pady=10,
-                          font=("arial", 20, "bold"))
-        self.his.place(relx=.5, rely=.8, anchor="center")
+        his_img = PhotoImage(file="resources\history.png", master=self.sroot)
+        self.his = Button(self.sroot, image=his_img, command=lambda: output("history"),bg="white", activebackground="#FF5733", bd=0)
+        self.his.image = his_img
+        self.his.place(relx=.9, rely=.05, anchor="center")
+        
+
+        his_del_img = PhotoImage(file="resources\del.png", master=self.sroot)
+        self.his_del = Button(self.sroot, image=his_del_img, command=lambda: del_history(),bg="white", activebackground="#FF5733", bd=0)
+        self.his_del.place(relx=.97, rely=.05, anchor="center")
+        self.his_del.image = his_del_img
+
         self.covid_button = Button(self.sroot, text="get info about corona cases in india, and take precautions", bg="black", fg="white",
                                    activebackground="#FF5733", borderwidth=1, highlightthickness=0, padx=9, height=1,
                                    font=("arial", 10),
                                    command=lambda : webbrowser.open("https://www.covid19india.org/"))
         self.covid_button.place(relx=.5, rely=0.95, anchor="center")
-        bgImg = Image.open(r"resources/grad.png")
-        bgImg = bgImg.resize((int(self.sroot.winfo_screenwidth() + 1), int((self.sroot.winfo_screenheight() / 3) + 2)),
-                             Image.ANTIALIAS)
-        bgImg1 = ImageTk.PhotoImage(bgImg, master=self.sroot)
-        canvas = Canvas(self.sroot, width=self.sroot.winfo_screenwidth(), height=(self.sroot.winfo_screenheight() / 3),
-                        borderwidth=0, highlightthickness=0, bg="black")
+        
+        name = username()
+        self.name_lab = Label(self.sroot,text=name, font=("open serif", 60, "bold"), bg="white", bd=0)
+        self.name_lab.place(relx=.6, rely=0.29, anchor="center")
 
-        canvas.create_image(0, 0, image=bgImg1, anchor="nw")
-        canvas.pack(expand=False, fill="both")
-        frame = Frame(canvas, width=self.sroot.winfo_screenwidth(), height=(self.sroot.winfo_screenheight() / 3))
-        frame.place(x=0, y=0, anchor="center", index=0)
+        hide_lab = Label(self.sroot, bg="white", height=10, width=50)
+        hide_lab.place(relx=.3, rely=0.75, anchor="center")
 
     def startMic(self):
         input()
