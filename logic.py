@@ -438,7 +438,7 @@ def output(q):
         speak(q[6:])
     elif "hey" in q or "hi" in q or "hello" in q:
         wish()
-    elif "how are you" in q or "1 मिनट रुक" in q:
+    elif "how are you" in q:
         speak("i am doing well")
     elif q == "stop" or q == "stop kara" or q == "bye" or q == "bye kara":  # stop the code
         speak("bye boss its my pleasure to help you")
