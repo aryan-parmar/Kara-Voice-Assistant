@@ -3,20 +3,32 @@ from logic import *
 
 class SplashScreen:
     def __init__(self, parent):
-        self.gambar = Image.open(r'resources/logo.png')
-        self.gambar = self.gambar.resize((920, 550), Image.ANTIALIAS)
+        self.gambar = Image.open(r'resources/logo.gif')
+        self.frameCnt = 20
+        self.frames = [PhotoImage(file="resources\\logo.gif",format = 'gif -index %i' %(i)) for i in range(self.frameCnt)]
         self.parent = parent
-        self.imgSplash = ImageTk.PhotoImage(self.gambar)
+        self.parent.configure(background="black")
+        #self.imgSplash = ImageTk.PhotoImage(self.gambar)
         self.splashWindow()
 
     def splashWindow(self):
+        ind = 0
         imagew, imageh = self.gambar.size
         setscreenw = (self.parent.winfo_screenwidth() - imagew) // 2
         setscreenh = (self.parent.winfo_screenheight() - imageh) // 2
         self.parent.geometry("%ix%i+%i+%i" % (imagew, imageh, setscreenw, setscreenh))
-        self.logo = Label(self.parent, image=self.imgSplash)
+        self.logo = Label(self.parent)
         self.logo.pack()
+        root.after(0, self.update, ind)
         self.parent.after(4050, lambda: self.parent.destroy())
+    
+    def update(self, ind):
+        frame = self.frames[ind]
+        ind += 1
+        if ind == self.frameCnt:
+            ind = 0
+        self.logo.configure(image=frame)
+        root.after(200, self.update, ind)
 
 
 class mainroot:
