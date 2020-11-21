@@ -1,35 +1,26 @@
 from logic import *
 
-
 class SplashScreen:
     def __init__(self, parent):
-        self.gambar = Image.open(r'resources/logo.gif')
-        self.frameCnt = 20
-        self.frames = [PhotoImage(file="resources\\logo.gif",format = 'gif -index %i' %(i)) for i in range(self.frameCnt)]
         self.parent = parent
-        self.parent.configure(background="black")
-        #self.imgSplash = ImageTk.PhotoImage(self.gambar)
-        self.splashWindow()
-
-    def splashWindow(self):
-        ind = 0
+        self.gambar = Image.open(r'resources/log2.gif')
         imagew, imageh = self.gambar.size
         setscreenw = (self.parent.winfo_screenwidth() - imagew) // 2
         setscreenh = (self.parent.winfo_screenheight() - imageh) // 2
         self.parent.geometry("%ix%i+%i+%i" % (imagew, imageh, setscreenw, setscreenh))
-        self.logo = Label(self.parent)
-        self.logo.pack()
-        root.after(0, self.update, ind)
+        self.parent.configure(background="black")
+        self.canvas = Canvas(self.parent,cnf={"width":imagew, "height":imageh})
+        self.canvas.pack(fill=BOTH)
+        self.sequence = [ImageTk.PhotoImage(img) for img in ImageSequence.Iterator(Image.open('resources\\log2.gif'))]
+        self.image = self.canvas.create_image(400,300,image=self.sequence[0])
         self.parent.after(4050, lambda: self.parent.destroy())
-    
-    def update(self, ind):
-        frame = self.frames[ind]
-        ind += 1
-        if ind == self.frameCnt:
-            ind = 0
-        self.logo.configure(image=frame)
-        root.after(200, self.update, ind)
+        self.animate(2)
 
+        #self.splashWindow()
+
+    def animate(self, counter):
+        self.canvas.itemconfig(self.image, image=self.sequence[counter])
+        self.parent.after(20, lambda: self.animate((counter+1) % len(self.sequence)))
 
 class mainroot:
     def __init__(self):

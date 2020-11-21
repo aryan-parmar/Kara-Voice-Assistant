@@ -15,7 +15,7 @@ from PIL import Image, ImageTk
 import wikipedia
 import pyttsx3 as p
 import speech_recognition as sr
-
+from PIL import Image, ImageTk, ImageSequence
 import Calculation
 import historyPdf
 import covidNotifier
