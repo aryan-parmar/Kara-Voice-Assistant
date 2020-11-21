@@ -21,4 +21,4 @@ def createPdf(inp):
         pdf.cell(200, 10, txt=a,
                  ln=lineNo, align='C')
         lineNo += 1
-    pdf.output("history.pdf")
+    pdf.output("resources\\history.pdf")

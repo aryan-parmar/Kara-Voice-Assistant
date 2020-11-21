@@ -358,7 +358,7 @@ def output(q):
         for y in get_history():
             print(y)
         historyPdf.createPdf(get_history())
-        os.startfile(r"history.pdf")
+        os.startfile(r"resources\history.pdf")
     elif "my subscriptions" in q or "my subscription" in q:
         speak("showing active subscriptions on youtube")
         webbrowser.open("www.youtube.com/subscription_manager", new=new)
