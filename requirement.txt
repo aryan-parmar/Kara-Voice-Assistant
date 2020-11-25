@@ -1,7 +1,7 @@
 wikipedia
 plyer
 pendulum
-numpy==1.19.2
+numpy==1.19.3
 opencv-python
 pyautogui
 mysql.connector
