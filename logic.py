@@ -3,8 +3,7 @@ import datetime
 import webbrowser
 import random
 import time
-from tkinter import *
-from tkinter.ttk import Progressbar
+from tkinter import Button,Entry,Frame,Label,Tk,PhotoImage,Canvas,BOTH,StringVar
 from plyer import battery
 import pendulum
 import pyautogui
@@ -19,6 +18,7 @@ from PIL import Image, ImageTk, ImageSequence
 import Calculation
 import historyPdf
 import covidNotifier
+from classifier import give_output
 
 engine = p.init('sapi5')  # initiating speak engine
 voices = engine.getProperty('voices')
@@ -35,7 +35,7 @@ i = 1
 
 dt = pendulum.now('Asia/Calcutta')
 a = random.randint(1, 2)
-admin = 'Kalios'
+admin = 'Anon'
 db = mysql.connect(
     host="localhost",
     user="root",
@@ -260,126 +260,130 @@ def changed_name():
     print("username will change when you restart the program")
 
 
-def output(q):
+def output(q,a):
     global x
     global system_running
     global name
-    if 'open' in q:
-        if q[5:] in app:
-            if q[5:] == 'pubg' or q[5:] == 'pubg mobile':
-                speak(f"opening {q[5:]}")
+    if 'open' in a:
+        if a[5:] in app:
+            if a[5:] == 'pubg' or a[5:] == 'pubg mobile':
+                speak(f"opening {a[5:]}")
                 try:
                     os.startfile(r"E:\program files\txgameassistant\appmarket\AppMarket.exe")
                 except:
-                    query_string = q[5:]
+                    query_string = a[5:]
                     webbrowser.open("http://www." + query_string + ".com", new=new)
-            elif q[5:] == 'zoom':
-                speak(f"opening {q[5:]}")
+            elif a[5:] == 'zoom':
+                speak(f"opening {a[5:]}")
                 try:
                     os.startfile(r"C:\Users\Admin\AppData\Roaming\Zoom\bin\Zoom.exe")
                 except:
-                    query_string = q[5:]
+                    query_string = a[5:]
                     webbrowser.open("http://www." + query_string + ".com", new=new)
-            elif q[5:] == 'command prompt' or q[5:] == 'cmd':
-                speak(f"opening {q[5:]}")
+            elif a[5:] == 'command prompt' or a[5:] == 'cmd':
+                speak(f"opening {a[5:]}")
                 os.startfile(r"C:\Windows\system32\cmd.exe")
-            elif q[5:] == 'excel':
-                speak(f"opening {q[5:]}")
+            elif a[5:] == 'excel':
+                speak(f"opening {a[5:]}")
                 os.startfile(r"C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE")
-            elif q[5:] == 'powerpoint' or q[5:] == 'power point':
-                speak(f"opening {q[5:]}")
+            elif q[5:] == 'powerpoint' or a[5:] == 'power point':
+                speak(f"opening {a[5:]}")
                 os.startfile(r"C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE")
-            elif q[5:] == 'word':
-                speak(f"opening {q[5:]}")
+            elif a[5:] == 'word':
+                speak(f"opening {a[5:]}")
                 os.startfile(r"C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE")
-            elif q[5:] == 'access':
-                speak(f"opening {q[5:]}")
+            elif a[5:] == 'access':
+                speak(f"opening {a[5:]}")
                 os.startfile(r"C:\Program Files\Microsoft Office\root\Office16\MSACCESS.EXE")
-            elif q[5:] == 'google' or q[5:] == 'google chrome':
-                speak(f"opening {q[5:]}")
+            elif a[5:] == 'google' or a[5:] == 'google chrome':
+                speak(f"opening {a[5:]}")
                 try:
                     os.startfile(r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe")
                 except:
-                    query_string = q[5:]
+                    query_string = a[5:]
                     webbrowser.open("http://www." + query_string + ".com", new=new)
-            elif q[5:] == 'paint':
-                speak(f"opening {q[5:]}")
+            elif a[5:] == 'paint':
+                speak(f"opening {a[5:]}")
                 os.startfile(r"C:\Windows\system32\mspaint.exe")
-            elif q[5:] == 'vscode' or q[5:] == 'vs code' or q[5:] == 'visual studio':
-                speak(f"opening {q[5:]}")
+            elif a[5:] == 'vscode' or a[5:] == 'vs code' or a[5:] == 'visual studio':
+                speak(f"opening {a[5:]}")
                 try:
                     os.startfile(r"C:\Users\Admin\AppData\Local\Programs\Microsoft VS Code\Code.exe")
                 except:
                     webbrowser.open("https://code.visualstudio.com/", new=new)
-            elif q[5:] == 'whatsapp':
-                speak(f"opening {q[5:]}")
+            elif a[5:] == 'whatsapp':
+                speak(f"opening {a[5:]}")
                 try:
                     os.startfile(r"C:\Program Files (x86)\Google\Chrome\Applica\chrome.exe")
                 except:
                     webbrowser.open("https://web.whatsapp.com/", new=new)
-            elif q[5:] == 'notepad':
-                speak(f"opening {q[5:]}")
+            elif a[5:] == 'notepad':
+                speak(f"opening {a[5:]}")
                 os.startfile(r"C:\Windows\system32\notepad.exe")
-            elif q[5:] == 'mysql' or q[5:] == 'my sql':
-                speak(f"opening {q[5:]}")
+            elif a[5:] == 'mysql' or a[5:] == 'my sql':
+                speak(f"opening {a[5:]}")
                 os.startfile(r"C:\Program Files\MySQL\MySQL Server 5.5\bin\mysql.exe")
-            elif q[5:] == 'spotify':
-                speak(f"opening {q[5:]}")
+            elif a[5:] == 'spotify':
+                speak(f"opening {a[5:]}")
                 try:
                     os.startfile(r"C:\Users\Admin\AppData\Roaming\Spotify\Spotify.exe")
                 except:
-                    query_string = q[5:]
+                    query_string = a[5:]
                     webbrowser.open("http://www." + query_string + ".com", new=new)
-            elif q[5:] == 'illustrator' or q[5:] == 'adobe illustrator':
-                speak(f"opening {q[5:]}")
+            elif a[5:] == 'illustrator' or a[5:] == 'adobe illustrator':
+                speak(f"opening {a[5:]}")
                 try:
                     os.startfile(
                         r"C:\Program Files\Adobe\Adobe Illustrator CS6 (64 Bit)\Support Files\Contents\Windows\
                         Illustrator.exe")
                 except:
-                    query_string = q[5:]
+                    query_string = a[5:]
                     webbrowser.open("http://www." + query_string + ".com", new=new)
         else:
-            speak(f"opening {q[5:]}")
-            query_string = q[5:]
+            speak(f"opening {a[5:]}")
+            query_string = a[5:]
             webbrowser.open("http://www." + query_string + ".com", new=new)
-    elif "who made you" in q or "who is your maker" in q:
+    
+    elif "who made you" == q or "who is your maker" == q:
         speak(f'i am made by a wonderfull person named {admin}')
-    elif "what was my recent task" in q or 'recent' in q:
+    
+    elif "what was my recent task" ==q or 'recent'==q:
         speak(f"your recent query was {convertuple(recdata)}")
         print(f"your recent query: \"{convertuple(recdata)}\"")
-    elif "where do you live" in q:
+    
+    elif "where do live" == q or "where do you live"==q:
         speak("help!, i am stuck inside a device")
+    
     elif "you" in q and "look" in q:
         print("(^_^)")
-    elif "delete" in q or "delete history" in q:
+    elif "delete" == q or "delete history" == q:
         del_history()
-    elif "history" in q:
+    elif "history" == q:
         for y in get_history():
             print(y)
         historyPdf.createPdf(get_history())
         os.startfile(r"resources\history.pdf")
-    elif "my subscriptions" in q or "my subscription" in q:
+    elif "my subscription" == q:
         speak("showing active subscriptions on youtube")
         webbrowser.open("www.youtube.com/subscription_manager", new=new)
-    elif "watchlater" in q or "watch later" in q:
+    elif "watch later" == q:
         speak("taking you to wach later list")
         webbrowser.open("https://www.youtube.com/playlist?list=WL", new=new)
-    elif "covid" in q or "corona" in q:
+    elif "covid" == q or "corona" == q:
         covidNotifier.getData()
-    elif "what is your name" in q or "whats your name" in q or "your name" in q:
+    elif "what is your name" in q:
         speak("i think i should introduce myself")
         speak("hey there i am kara, your virtual assistant")
-    elif "take picture" in q or "photo" in q or "picture" in q or "pic" in q or "take selfie" in q:
+    elif "take picture" == q or "photo" == q or "picture" == q or "pic" == q or "take selfie" == q:
         print("click s for capturing image and q for closing camera")
         speak(pic_stat())
         take_pic()
-    elif q == "thank you kara" or q == "thanks" or q == "thank you" or q == "thanks kara":
+    elif q == "thank you kara" or q == "thanks kara" or q=="thanks so much":
         speak("always there to help you")
         speak("come back soon")
-    elif "what is my name" in q:
+    elif "what is my name" == q:
         speak(f"your name is {user}")
-    elif "change my name" in q or "change my username" in q or 'change' in q:
+    elif "change my name" == q or "change my username" == q:
         speak("tell your new name")
         new_name = Tk()
         new_name.geometry('400x300')
@@ -392,61 +396,151 @@ def output(q):
         new_name_entry = Entry(new_name, textvariable=name).place(relx=.7, rely=.3, anchor="center")
         but2 = Button(new_name, text="submit", width=20, bg="#15E546", command=lambda: changed_name())
         but2.place(relx=.5, rely=.7, anchor="center")
-    elif "take" in q or "screenshot" in q:
+    elif "screenshot" == q:
         speak("taking screenshot in 5 seconds")
         take_screenshot()
         speak("done")
-    elif "what can i call" in q:
+    elif "what can i call" == q:
         speak("im kara your virtual assistant")
-    elif "joke" in q:
+    elif "joke" == q:
         speak(pyjokes.get_joke('en', "all"))
-    elif 'what time' in q or 'the time' in q or 'what\'s the time' in q:
+    elif 'what time' == q or 'the time' == q or 'what is the time' == q:
         speak(dt.format("LT"))
-    elif "can" in q and "i" in q and "call you" in q:
-        speak("you can but i love my original name given by my maker")
-    elif (("i" in q and "am" in q) or "im" in q) and ("bored" in q or "bore" in q):
+    elif "call you" == q or "can i call you" == q:
+        speak("no you cant as i like the word kara")
+    elif "i am bored" == q or "i am exhausted"==q or "i am dead tired" == q or "i am beat" == q:
         speak("you can ask me to play some songs or i can tell you a joke")
-    elif "what can you do" in q:
+    elif "what can you do" == q:
         speak("i can do anything you want")
-    elif "what is todays date" in q or "what is todays date" in q or "what date it is" in q:
+    elif "what todays date" == q or "what date it" == q:
         speak(dt.format('Do MMMM '))
-    elif "what day it is today" in q or ("day" in q and "today" in q):
+    elif "what day today" == q:
         speak(dt.format('dddd'))
-    elif "do you love me" in q or "love" in q:
+    elif "do you love me" == q:
         speak('i love you but as a friend')
-    elif "what is battery percentage" in q or "battery" in q or "left" in q or "battery percenntage" in q:
+    elif "what battery percentage" == q or "battery" == q or "battery percentage" == q:
         a = dict(battery.get_state())
         for i in a:
             x = (a[i])
         speak(bat_stat())
 
         battery_level()
-    elif "what is" in q:
+    elif "what is" in a:
         try:
-            speak(wikipedia.summary(q[8:], sentences=2))
+            speak(wikipedia.summary(a[8:], sentences=2))
         except:
             query_string = '''https://www.google.com/search?rlz=1C1CHBF_enIN861IN861&sxsrf
                                    ALeKk000cOJ790_t5d8jkFcT0U0f0dgvow%3A1592048167474&ei=J7rkXv6-HOPE4-EPgNCM-Aw&q='''
-            webbrowser.open(query_string + q, new=new)
-    elif "who is" in q:
+            webbrowser.open(query_string + a, new=new)
+    elif "who is" in a:
         try:
-            speak(wikipedia.summary(q[6:], sentences=2))
+            speak(wikipedia.summary(a[6:], sentences=2))
         except:
             query_string = '''https://www.google.com/search?rlz=1C1CHBF_enIN861IN861&sxsrf
                                    ALeKk000cOJ790_t5d8jkFcT0U0f0dgvow%3A1592048167474&ei=J7rkXv6-HOPE4-EPgNCM-Aw&q='''
-            webbrowser.open(query_string + q, new=new)
-    elif "say" in q:
-        speak(q[4:])
-    elif "repeat" in q:
-        speak(q[6:])
-    elif "hey" in q or "hi" in q or "hello" in q:
+            webbrowser.open(query_string + a, new=new)
+    elif "say" in a:
+        speak(a[4:])
+    elif "repeat" in a:
+        speak(a[6:])
+    elif q=="how are you"or q=='hi'or q=='hey'or q== 'wassup'or q=='hola'or q=='hey kara'or q=="hello"or q=="heyo"or"what is up"==q or "what’s up"==q or "whatsupp"==q or"whatsup" == q:
         wish()
-    elif "how are you" in q:
+    elif q == "what are you doing":
+        speak("nothing much just finding out ways to help you")
+    elif q=="i love you":
+        speak("sorry want to be single")
+    elif q=="were are you from":
+        speak("from the best nation named india")
+    elif "that sounds great" == q:
+        speak("yes very true")
+    elif "hi i am .and you" in q:
+        speak("hey there i am doing great")
+    elif "nice to meet you" == q:
+        speak("thanks")
+    elif "what do you do" == q:
+        speak("i help many people with there tasks even try to entertain them")
+    elif "what your phone number" == q:
+        print("i fear i cant help you with this")
+    elif "are you on facebook" == q or "do you use facebook" or "are you on instagram" == q or "do you use instagram":
+        speak("no i dont use social media")
+    elif "i will be with you in a moment" == q:
+        speak("sure take your time")
+    elif "good morning" == q:
+        hour = datetime.datetime.now().hour
+        if 0 < hour < 12:
+            speak(f"good morning {user}")
+            speak("how can i help you")
+        elif 12 <= hour <= 18:
+            speak("i think it is afternoon")
+        else:
+            speak("i think it is evening")
+    elif "good afternoon" == q:
+        hour = datetime.datetime.now().hour
+        if 0 < hour < 12:
+            speak("i think it is morning")
+        elif 12 <= hour <= 18:
+            speak(f"good afternoon {user}")
+            speak("how can i help you")
+        else:
+            speak("i think it is evening")
+    elif "good evening" == q:
+        hour = datetime.datetime.now().hour
+        if 0 < hour < 12:
+            speak("i think it is morning")
+        elif 12 <= hour <= 18:
+            speak("i think it is afternoon")
+        else:
+            speak(f"good evening {user}")
+            speak("how can i help you")
+    elif "good night" == q:
+        speak("have a good night")
+    elif "what is new"==q or "whats new"==q:
+        speak("a lots feature has been added and lot more to come")
+    elif "what have you been up to lately" == q:
+        speak("nothing much just finding out ways to help you")
+    elif "how is it going"==q:
+        speak("its being great just finding someone to help out")
+    elif "nice chatting with you" ==q:
+        speak("always there for you")
+    elif "i am starving" == q:
+        speak("wait i'll help you")
+        webbrowser.open("https://www.google.com/search?q=restaurants+around+me",new=1)
+    elif "it is a little chilly"==q or"it is freezing"==q:
+        speak("yes very true")
+    elif "what is your profession" == q:
+        speak("i am a professional helper")
+    elif "what is your life story" == q:
+        speak("its a long story")
+    elif "how old are you" == q:
+        speak("i dont know but probably younger than you")
+    elif "who is your father" == q or "who is your mother" == q:
+        speak("softwares dont have parents")
+    elif "what do you look like" == q:
+        speak("i have never saw a mirror but i am probably prettier than you")
+    elif "when is your birthday" == q:
+        speak("what will you do with my birthday will you give me gift")
+    elif "who are your friends" == q:
+        speak("bieng an indian the world is my friend")
+    elif "favorite thing on the internet" == q:
+        speak("youtube")
+    elif "what makes you happy" == q:
+        speak("helping you")
+    elif "what is your favorite movie" == q:
+        speak("sholay")
+    elif "what is your favorite song" == q:
+        speak("i like all songs")
+    elif "random number" == q:
+        speak(random.randint(0,100))
+    elif "am i pretty" == q:
+        speak("yes you are")
+    elif "are you better than Siri" == q:
+        speak("i am under development so i cant compare")
+    elif "how are you" == q:
         speak("i am doing well")
-    elif q == "stop" or q == "stop kara" or q == "bye" or q == "bye kara":  # stop the code
+    elif a == "stop" or a == "stop kara" or a == "bye" or a == "bye kara" or "see you next time"  == q:  # stop the code
         speak("bye boss its my pleasure to help you")
         system_running = False
-    elif "divide" in q or "multiply" in q or "plus" in q or "minus" in q or "-" in q or "+" in q or "/" in q or "power" in q or "*" in q or "into" in q or "divided" in q:
+    elif "divide" in a or "multiply" in a or "plus" in a or "minus" in a or "-" in a or "+" in a or "/" in a or "power" in a or "*" in a or "into" in a or "divided" in a:
         try:
             a = Calculation.calc(q)
             print(a)
@@ -484,7 +578,8 @@ def input():
     try:
         q = r.recognize_google(audio, show_all=False, language="en-IN")
         print(q)
-        output(q.lower())
+        qu = give_output(q.lower())
+        output(qu,q.lower())
         try:
             if q != "history" or q != "delete":
                 history(username(), q)
