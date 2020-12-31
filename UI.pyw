@@ -43,7 +43,7 @@ class mainroot:
         self.mic.image = mic1
 
         his_img = PhotoImage(file="resources\history.png", master=self.sroot)
-        self.his = Button(self.sroot, image=his_img, command=lambda: output("history"),bg="white", activebackground="#FF5733", bd=0)
+        self.his = Button(self.sroot, image=his_img, command=lambda: output("history","history"),bg="white", activebackground="#FF5733", bd=0)
         self.his.image = his_img
         self.his.place(relx=.9, rely=.05, anchor="center")
         

@@ -19,6 +19,8 @@ import Calculation
 import historyPdf
 import covidNotifier
 from classifier import give_output
+from wolframAlphaApi import wraout,wraout1
+from multiprocessing import Process
 
 engine = p.init('sapi5')  # initiating speak engine
 voices = engine.getProperty('voices')
@@ -248,7 +250,6 @@ def take_screenshot(ss=1):
     time.sleep(5)
     pyautogui.screenshot().save(f"screenshot{ss}.jpg")
 
-
 # welcoming the user
 
 
@@ -353,9 +354,6 @@ def output(q,a):
     
     elif "where do live" == q or "where do you live"==q:
         speak("help!, i am stuck inside a device")
-    
-    elif "you" in q and "look" in q:
-        print("(^_^)")
     elif "delete" == q or "delete history" == q:
         del_history()
     elif "history" == q:
@@ -371,7 +369,7 @@ def output(q,a):
         webbrowser.open("https://www.youtube.com/playlist?list=WL", new=new)
     elif "covid" == q or "corona" == q:
         covidNotifier.getData()
-    elif "what is your name" in q:
+    elif "what is your name" == q:
         speak("i think i should introduce myself")
         speak("hey there i am kara, your virtual assistant")
     elif "take picture" == q or "photo" == q or "picture" == q or "pic" == q or "take selfie" == q:
@@ -400,7 +398,7 @@ def output(q,a):
         speak("taking screenshot in 5 seconds")
         take_screenshot()
         speak("done")
-    elif "what can i call" == q:
+    elif "what can call" == q:
         speak("im kara your virtual assistant")
     elif "joke" == q:
         speak(pyjokes.get_joke('en', "all"))
@@ -425,22 +423,12 @@ def output(q,a):
         speak(bat_stat())
 
         battery_level()
-    elif "what is" in a:
-        try:
-            speak(wikipedia.summary(a[8:], sentences=2))
-        except:
-            query_string = '''https://www.google.com/search?rlz=1C1CHBF_enIN861IN861&sxsrf
-                                   ALeKk000cOJ790_t5d8jkFcT0U0f0dgvow%3A1592048167474&ei=J7rkXv6-HOPE4-EPgNCM-Aw&q='''
-            webbrowser.open(query_string + a, new=new)
-    elif "who is" in a:
-        try:
-            speak(wikipedia.summary(a[6:], sentences=2))
-        except:
-            query_string = '''https://www.google.com/search?rlz=1C1CHBF_enIN861IN861&sxsrf
-                                   ALeKk000cOJ790_t5d8jkFcT0U0f0dgvow%3A1592048167474&ei=J7rkXv6-HOPE4-EPgNCM-Aw&q='''
-            webbrowser.open(query_string + a, new=new)
     elif "say" in a:
         speak(a[4:])
+    elif "news"==q or "show me news"==q:
+        speak("showing news every hour")
+        p = Process(target="./news.pyw")
+        p.start()
     elif "repeat" in a:
         speak(a[6:])
     elif q=="how are you"or q=='hi'or q=='hey'or q== 'wassup'or q=='hola'or q=='hey kara'or q=="hello"or q=="heyo"or"what is up"==q or "what’s up"==q or "whatsupp"==q or"whatsup" == q:
@@ -449,7 +437,7 @@ def output(q,a):
         speak("nothing much just finding out ways to help you")
     elif q=="i love you":
         speak("sorry want to be single")
-    elif q=="were are you from":
+    elif q=="where are you from":
         speak("from the best nation named india")
     elif "that sounds great" == q:
         speak("yes very true")
@@ -461,7 +449,7 @@ def output(q,a):
         speak("i help many people with there tasks even try to entertain them")
     elif "what your phone number" == q:
         print("i fear i cant help you with this")
-    elif "are you on facebook" == q or "do you use facebook" or "are you on instagram" == q or "do you use instagram":
+    elif "are you on facebook" == q or "do you use facebook"==q or "are you on instagram" == q or "do you use instagram"==q:
         speak("no i dont use social media")
     elif "i will be with you in a moment" == q:
         speak("sure take your time")
@@ -518,7 +506,7 @@ def output(q,a):
     elif "what do you look like" == q:
         speak("i have never saw a mirror but i am probably prettier than you")
     elif "when is your birthday" == q:
-        speak("what will you do with my birthday will you give me gift")
+        speak("what will you do with my birthday will you give me a gift")
     elif "who are your friends" == q:
         speak("bieng an indian the world is my friend")
     elif "favorite thing on the internet" == q:
@@ -540,6 +528,23 @@ def output(q,a):
     elif a == "stop" or a == "stop kara" or a == "bye" or a == "bye kara" or "see you next time"  == q:  # stop the code
         speak("bye boss its my pleasure to help you")
         system_running = False
+    elif "what is" in a:
+        try:
+            speak(wraout(a))
+        except:
+            query_string = '''https://www.google.com/search?rlz=1C1CHBF_enIN861IN861&sxsrf
+                                   ALeKk000cOJ790_t5d8jkFcT0U0f0dgvow%3A1592048167474&ei=J7rkXv6-HOPE4-EPgNCM-Aw&q='''
+            webbrowser.open(query_string + a, new=new)
+    elif "who is" in a:
+        try:
+            try:
+                speak(wraout1(a,5))
+            except:
+                speak(wikipedia.summary(a[6:], sentences=2))
+        except:
+            query_string = '''https://www.google.com/search?rlz=1C1CHBF_enIN861IN861&sxsrf
+                                   ALeKk000cOJ790_t5d8jkFcT0U0f0dgvow%3A1592048167474&ei=J7rkXv6-HOPE4-EPgNCM-Aw&q='''
+            webbrowser.open(query_string + a, new=new)
     elif "divide" in a or "multiply" in a or "plus" in a or "minus" in a or "-" in a or "+" in a or "/" in a or "power" in a or "*" in a or "into" in a or "divided" in a:
         try:
             a = Calculation.calc(q)
@@ -549,11 +554,14 @@ def output(q,a):
             print("hmm, try again")
     else:
         try:
-            speak(eval(q))
+            try:
+                speak(eval(a))
+            except:
+                speak(wraout(a))
         except:
             query_string = '''https://www.google.com/search?rlz=1C1CHBF_enIN861IN861&sxsrf
                                ALeKk000cOJ790_t5d8jkFcT0U0f0dgvow%3A1592048167474&ei=J7rkXv6-HOPE4-EPgNCM-Aw&q='''
-            webbrowser.open(query_string + q, new=new)
+            webbrowser.open(query_string + a, new=new)
 
 
 recdata = getrecent()
@@ -579,6 +587,7 @@ def input():
         q = r.recognize_google(audio, show_all=False, language="en-IN")
         print(q)
         qu = give_output(q.lower())
+        print(qu)
         output(qu,q.lower())
         try:
             if q != "history" or q != "delete":

@@ -1,7 +1,7 @@
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
-f = open("data.txt", "r")
+f = open("resources/data.txt", "r")
 output_list = f.read()
 output_list = output_list.split(",")
 f.close()
@@ -33,6 +33,6 @@ def give_output(text):
             index = i
 
     if max_val >= 0.5:
-        return output_list[index], a[index]
+        return output_list[index]
     else:
-        return "sorry", None
+        return "sorry"
