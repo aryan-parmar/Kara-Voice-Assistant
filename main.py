@@ -17,7 +17,7 @@ def install_process2():
         if "3.9.0" in a:
             os.system('cmd /c "pip install pyaudio\PyAudio-0.2.11-cp39-cp39-win_amd64.whl"')
             os.system('cmd /C "pip install speechRecognition"')
-            os.system('cmd /C "pip install -r requirement.txt"')
+            os.system('cmd /C "pip install -r requirements.txt"')
             os.system('cmd /C "python UI.py"')
         else:
             os.system('cmd /c "pip install pyaudio\PyAudio-0.2.11-cp38-cp38-win_amd64.whl"')
