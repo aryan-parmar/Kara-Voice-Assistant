@@ -33,7 +33,7 @@ def install_process2():
         else:
             os.system('cmd /c "pip install pyaudio\PyAudio-0.2.11-cp38-cp38-win32.whl"')
             os.system('cmd /C "pip install speechRecognition"')
-            os.system('cmd /C "pip install -r requirement.txt"')
+            os.system('cmd /C "pip install -r requirements.txt"')
             os.system('cmd /C "python UI.py"')
 
 

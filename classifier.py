@@ -32,7 +32,7 @@ def give_output(text):
             max_val = a[i]
             index = i
 
-    if max_val >= 0.5:
+    if max_val >= 0.6:
         return output_list[index]
     else:
         return "sorry"

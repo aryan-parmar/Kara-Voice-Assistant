@@ -344,7 +344,13 @@ def output(q,a):
             speak(f"opening {a[5:]}")
             query_string = a[5:]
             webbrowser.open("http://www." + query_string + ".com", new=new)
-    
+    elif "divide" in a or "multiply" in a or "plus" in a or "minus" in a or "-" in a or "+" in a or "/" in a or "power" in a or "*" in a or "into" in a or "divided" in a:
+        try:
+            a = Calculation.calc(a)
+            print(a)
+            speak(a)
+        except Exception as e:
+            print("hmm, try again "+e)
     elif "who made you" == q or "who is your maker" == q:
         speak(f'i am made by a wonderfull person named {admin}')
     
@@ -530,7 +536,11 @@ def output(q,a):
         system_running = False
     elif "what is" in a:
         try:
-            speak(wraout(a))
+            xyz = wraout(a).lower()
+            if "none type" in xyz:
+                speak("sorry Try again")
+            else:
+                speak(xyz)
         except:
             query_string = '''https://www.google.com/search?rlz=1C1CHBF_enIN861IN861&sxsrf
                                    ALeKk000cOJ790_t5d8jkFcT0U0f0dgvow%3A1592048167474&ei=J7rkXv6-HOPE4-EPgNCM-Aw&q='''
@@ -545,13 +555,7 @@ def output(q,a):
             query_string = '''https://www.google.com/search?rlz=1C1CHBF_enIN861IN861&sxsrf
                                    ALeKk000cOJ790_t5d8jkFcT0U0f0dgvow%3A1592048167474&ei=J7rkXv6-HOPE4-EPgNCM-Aw&q='''
             webbrowser.open(query_string + a, new=new)
-    elif "divide" in a or "multiply" in a or "plus" in a or "minus" in a or "-" in a or "+" in a or "/" in a or "power" in a or "*" in a or "into" in a or "divided" in a:
-        try:
-            a = Calculation.calc(q)
-            print(a)
-            speak(a)
-        except:
-            print("hmm, try again")
+    
     else:
         try:
             try:
