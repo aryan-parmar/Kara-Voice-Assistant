@@ -9,3 +9,4 @@ pyjokes
 fpdf
 pyttsx3==2.71
 sklearn
+wolframalpha
