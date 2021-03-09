@@ -29,6 +29,8 @@ def operatorChange(inp):
         elif i == "into":
             toke[index] = '*'
             index += 1
+        elif i == '+' or i == '-' or i == '*' or i == '/':
+            pass
         else:
             try:
                 x = int(i)

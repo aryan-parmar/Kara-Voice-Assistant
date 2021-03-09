@@ -25,7 +25,7 @@ from multiprocessing import Process
 engine = p.init('sapi5')  # initiating speak engine
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
-engine.setProperty('rate', 150)
+engine.setProperty('rate', 250)
 engine.setProperty('volume', 2.0)
 new = 2
 app = ("zoom", "google", "google chrome", "spotify", "powerpoint", "power point", "paint",
@@ -395,7 +395,7 @@ def output(q,a):
         new_name.configure(background="black")
         new_name.title("Change Name")
         name = StringVar()
-        name_lab = Label(text="New name :-", fg="white", bg="black")
+        name_lab = Label(new_name,text="New name :-", fg="white", bg="black")
         name_lab.place(relx=.4, rely=.3, anchor="center")
         new_name_entry = Entry(new_name, textvariable=name).place(relx=.7, rely=.3, anchor="center")
         but2 = Button(new_name, text="submit", width=20, bg="#15E546", command=lambda: changed_name())

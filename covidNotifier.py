@@ -7,7 +7,7 @@ def notifyme(title, message):
     notification.notify(
         title=title,
         message=message,
-        app_icon=r"winlogo.ico",
+        app_icon=r"resources/winlogo.ico",
         timeout=10
     )
 
@@ -19,4 +19,3 @@ def getData():
     b = soup.find_all("tbody")[0].find_all("tr")[-2]
     d = b.find_all("td")
     notifyme("hello sir", f"todays cases in india are:-   {d[-2].getText()}")
-
