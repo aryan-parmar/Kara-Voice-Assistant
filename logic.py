@@ -18,7 +18,7 @@ from PIL import Image, ImageTk, ImageSequence
 import Calculation
 import historyPdf
 import covidNotifier
-from classifier import give_output
+from classifier import classify
 from wolframAlphaApi import wraout,wraout1
 from multiprocessing import Process
 
@@ -37,7 +37,7 @@ i = 1
 
 dt = pendulum.now('Asia/Calcutta')
 a = random.randint(1, 2)
-admin = 'Anon'
+admin = 'Aryan'
 db = mysql.connect(
     host="localhost",
     user="root",
@@ -590,7 +590,7 @@ def input():
     try:
         q = r.recognize_google(audio, show_all=False, language="en-IN")
         print(q)
-        qu = give_output(q.lower())
+        qu = classify(q.lower())
         print(qu)
         output(qu,q.lower())
         try:

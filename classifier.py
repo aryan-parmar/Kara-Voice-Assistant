@@ -36,3 +36,8 @@ def give_output(text):
         return output_list[index]
     else:
         return "sorry"
+
+def classify(n):
+    a = give_output(n)
+    a = give_output(n)
+    return a
