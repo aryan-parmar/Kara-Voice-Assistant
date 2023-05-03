@@ -25,7 +25,7 @@ from multiprocessing import Process
 engine = p.init('sapi5')  # initiating speak engine
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
-engine.setProperty('rate', 250)
+engine.setProperty('rate', 150)
 engine.setProperty('volume', 2.0)
 new = 2
 app = ("zoom", "google", "google chrome", "spotify", "powerpoint", "power point", "paint",
@@ -41,7 +41,7 @@ admin = 'Aryan'
 db = mysql.connect(
     host="localhost",
     user="root",
-    passwd="1234"
+    passwd=""
 )
 data = db.cursor()
 
@@ -514,7 +514,7 @@ def output(q,a):
     elif "when is your birthday" == q:
         speak("what will you do with my birthday will you give me a gift")
     elif "who are your friends" == q:
-        speak("bieng an indian the world is my friend")
+        speak("being an indian the world is my friend")
     elif "favorite thing on the internet" == q:
         speak("youtube")
     elif "what makes you happy" == q:

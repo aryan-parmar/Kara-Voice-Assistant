@@ -1,5 +1,5 @@
 import wolframalpha as wra
-app_id = #----------# get your own at https://products.wolframalpha.com/api/
+app_id = "23WQ52-7AWUQT5U7P" #----------# get your own at https://products.wolframalpha.com/api/
 client = wra.Client(app_id)
 def wraout(a):
     try:
